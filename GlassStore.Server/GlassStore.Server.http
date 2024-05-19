@@ -21,3 +21,8 @@ Accept: application/json
 ###
 GET {{GlassStore.Server_HostAddress}}/Auth/Login/q@gmail.com/qwerty
 Accept: application/json
+
+
+###
+GET {{GlassStore.Server_HostAddress}}/test/chat
+Accept: application/json

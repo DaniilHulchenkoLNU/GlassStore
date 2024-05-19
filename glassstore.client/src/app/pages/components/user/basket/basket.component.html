@@ -1,3 +1,29 @@
-<h1>Basket</h1>
-
-
+<div class="container">
+  <h1 class="my-4">Basket</h1>
+  <div class="row">
+    <div class="col-lg-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Glass Name</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+           <!--Здесь мы используем директиву *ngFor для отображения каждого элемента в массиве glasses--> 
+          <tr *ngFor="let glass of basket.glasses; index as i">
+            <th scope="row">{{i + 1}}</th>
+            <td>{{glass.brand}}</td>
+            <td>{{glass.price}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Total Price: {{basket.totalPrice}}</h2>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+using GlassStore.Server.Controllers.Hubs;
 using GlassStore.Server.DAL.Implementations;
 using GlassStore.Server.DAL.Interfaces;
 using GlassStore.Server.Domain;
@@ -5,6 +6,7 @@ using GlassStore.Server.Domain.Models;
 using GlassStore.Server.Domain.Models.Auth;
 using GlassStore.Server.Repositories.Implementations;
 using GlassStore.Server.Repositories.Interfaces;
+using GlassStore.Server.Servise;
 using GlassStore.Server.Servise.Auth;
 using GlassStore.Server.Servise.Helpers;
 using GlassStore.Server.Servise.User;
@@ -48,6 +50,7 @@ builder.Services.AddScoped<iUserRepository, UserRepository>();
 builder.Services.AddScoped<AuthServise>();
 builder.Services.AddScoped<UserServise>();
 builder.Services.AddTransient<HttpService>();
+builder.Services.AddTransient<ChatServise>();
 /*################################### Auth ##################################################*/
 builder.Services.Configure<AuthOptions>(builder.Configuration.GetSection("Auth"));
 
@@ -75,27 +78,21 @@ builder.Services.AddHttpContextAccessor();
 
 /*############################## AddAutoMapper ######################################################*/
 builder.Services.AddAutoMapper(typeof(Program));
-
+/*############################## SignalR ######################################################*/
+builder.Services.AddSignalR();
 /*############################## localhost 4200 ######################################################*/
-//builder.Services.AddCors(options => { 
-//    options.AddDefaultPolicy(
-//        builder =>
-//        {
-//            builder.AllowAnyOrigin()
-//            .AllowAnyMethod()
-//            .AllowAnyHeader();
-//        });
-//    });
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowLocalhost7224",
-//        builder =>
-//        {
-//            builder.WithOrigins("https://localhost:7224")
-//                   .AllowAnyMethod()
-//                   .AllowAnyHeader();
-//        });
-//});
+string[] WhiteListCors = builder.Configuration.GetSection("AngularUrl").Get<string[]>();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.WithOrigins(WhiteListCors)
+                   .AllowAnyMethod()
+                   .AllowAnyHeader()
+                   .AllowCredentials(); // Добавьте эту строку, если вы используете cookies или авторизацию
+        });
+});
 
 var app = builder.Build();
 
@@ -121,6 +118,13 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+
+app.MapHub<ChatHub>("/chathub");
+
+
 app.MapFallbackToFile("/index.html");
+
+
+
 
 app.Run();

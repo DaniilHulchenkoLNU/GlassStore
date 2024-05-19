@@ -4,7 +4,7 @@ from api_patern import MaskLoaderFromLocal, MaskLoaderFromUrl, detect_faces, app
 class TestMaskLoaderFromLocal(unittest.TestCase):
     def test_load_mask(self):
         loader = MaskLoaderFromLocal()
-        result = loader.load_mask('Glasses/1/2.png')
+        result = loader.load_mask('2.png')
         self.assertIsNotNone(result)
 
 class TestMaskLoaderFromUrl(unittest.TestCase):

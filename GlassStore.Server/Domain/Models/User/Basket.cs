@@ -2,10 +2,10 @@
 
 namespace GlassStore.Server.Domain.Models.User
 {
-    public class Basket
+    public class Basket: DbBase
     {
         public List<Glasses> Glasses { get; set; }
 
-        public double TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }

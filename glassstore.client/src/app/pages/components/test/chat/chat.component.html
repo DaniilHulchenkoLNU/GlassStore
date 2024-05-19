@@ -1,0 +1,14 @@
+<div class="close-button">
+  <button data-bs-dismiss="modal">X</button>
+</div>
+
+<div class="messages">
+  <div *ngFor="let message of messages" class="message">
+    {{message}}
+  </div>
+</div>
+
+<div class="input-area">
+  <input type="text" [(ngModel)]="message" placeholder="Type a message...">
+  <button (click)="sendMessage()">Send</button>
+</div>

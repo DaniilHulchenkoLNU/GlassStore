@@ -24,6 +24,8 @@ router-outlet + * > * {
 
 
 
+
+
 :root,
 [data-bs-theme=light] {
   --bs-blue: #007bff;

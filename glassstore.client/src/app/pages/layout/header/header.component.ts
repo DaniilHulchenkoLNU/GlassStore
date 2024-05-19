@@ -26,14 +26,16 @@ export class HeaderComponent {
 
     const routes: Routes = this.router.config;
 
-
     routes.forEach(route => {
       if (route.path !== '**' && route.path !== '' && route.path !== undefined) {
-        this.urls.push(route.path);
+        //if (!route.path.includes('/')) {
+          this.urls.push(route.path);        
+        //}
+        
       }
     });
 
-    this.urls = this.urls.filter(url => !this.IgnoreUrls.includes(url));
+    //this.urls = this.urls.filter(url => !this.IgnoreUrls.includes(url));
     //this.urls.reduce('GlassInfo')
   }
 

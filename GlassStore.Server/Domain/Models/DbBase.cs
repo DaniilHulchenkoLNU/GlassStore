@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 
-namespace GlassStore.Server.Domain.Models.Glass
+namespace GlassStore.Server.Domain.Models
 {
     public class DbBase
     {

@@ -4,6 +4,7 @@ using MongoDB.Bson;
 using System.ComponentModel.DataAnnotations;
 using SharpCompress.Compressors.ADC;
 using GlassStore.Server.Domain.Models.Glass;
+using GlassStore.Server.Domain.Models;
 
 namespace GlassStore.Server.Repositories.Implementations;
 
@@ -32,6 +33,7 @@ public class BaseRepository<T> : iBaseRepository<T> where T : DbBase
         var filter = Builders<T>.Filter.Eq("_id", objectId);
         return await _data.Find(filter).FirstOrDefaultAsync();
     }
+
 
     public async Task CreateAsync(T data)
     {

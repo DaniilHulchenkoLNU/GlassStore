@@ -5,6 +5,10 @@ import { OrdersComponent } from './orders/orders.component';
 import { BasketComponent } from './basket/basket.component';
 import { UserService } from '../../../services/User.service';
 import { UserInfoComponent } from './user-info/user-info.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -19,9 +23,15 @@ import { UserInfoComponent } from './user-info/user-info.component';
   ],
   imports: [
     CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
+
+
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
   ],
-  //exports: [],
+  exports: [],
   providers: [UserService],
 })
 export class UserModule { }

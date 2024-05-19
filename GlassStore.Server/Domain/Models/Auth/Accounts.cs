@@ -1,5 +1,4 @@
-﻿using GlassStore.Server.Domain.Models.Glass;
-using GlassStore.Server.Domain.Models.User;
+﻿using GlassStore.Server.Domain.Models.User;
 
 namespace GlassStore.Server.Domain.Models.Auth
 {

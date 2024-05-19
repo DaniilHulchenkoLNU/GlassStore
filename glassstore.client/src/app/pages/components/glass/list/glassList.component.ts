@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Glasses } from '../../../../models/Glasses/Glasses';
 import { GlassService } from '../../../../services/Glass.service';
+import { Observable } from 'rxjs';
+import { UserService } from '../../../../services/User.service';
 
 
 
@@ -15,7 +17,7 @@ import { GlassService } from '../../../../services/Glass.service';
 export class GlassListComponent {
   public glasses: Glasses[] = [];
 
-  constructor(public glassService: GlassService) {
+  constructor(public glassService: GlassService, public userServise: UserService) {
   }
 
 
@@ -29,6 +31,10 @@ export class GlassListComponent {
         console.error(error);
       }
     );
+  }
+
+  public addToCart(id: string): void {
+    this.userServise.addtobasket(id).subscribe();
   }
 
 

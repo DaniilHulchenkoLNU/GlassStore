@@ -1,6 +1,6 @@
 <!--<form>-->
-  <!--<fieldset control-id="ControlID-9">-->
-  <!--<legend>Legend</legend>
+<!--<fieldset control-id="ControlID-9">-->
+<!--<legend>Legend</legend>
   <div>
     <label for="exampleInputEmail1" class="form-label mt-4" style="color:white">Email address</label>
     <input type="email" #email class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" control-id="ControlID-11">
@@ -17,6 +17,7 @@
 </form>-->
 
 <mat-card>
+  <h2 style="color:gray">Login</h2>
   <mat-form-field class="form-label mt-4" style="color:white">
     <mat-label>Email address</mat-label>
     <input type="email" matInput placeholder="Enter email" #email>
@@ -27,5 +28,6 @@
     <input type="password" matInput placeholder="Password" #password>
   </mat-form-field>
   <button mat-flat-button (click)="login(email.value, password.value)" class="bg-black">Login</button>
-           
+
+  <p style="color:white">Forgot password</p>
 </mat-card>

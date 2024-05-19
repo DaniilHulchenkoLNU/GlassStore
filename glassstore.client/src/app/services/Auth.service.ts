@@ -39,4 +39,15 @@ export class AuthService {
     localStorage.removeItem(ACCESS_TOKEN);
     this.router.navigate(['']);
   }
+
+
+  register(email: string, password: string): Observable<any> {
+    return this.http.post('/auth/Register', {
+      email, password
+    }).pipe(
+      tap(() => this.login(email, password))
+    );
+  }
+
+
 }

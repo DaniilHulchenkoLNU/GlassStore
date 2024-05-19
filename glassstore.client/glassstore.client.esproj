@@ -8,6 +8,6 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\glassstore.client\</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src\app\pages\layout\Auth\register\" />
+    <None Remove="src\app\services\user.service.spec.ts" />
   </ItemGroup>
 </Project>

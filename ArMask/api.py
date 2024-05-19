@@ -34,20 +34,17 @@ class MaskLoader(ABC):
         return mask
 class MaskLoaderFromLocal(MaskLoader):
     def load_mask(self, url):
-        """
-        Загрузка изображения маски и установка прозрачности.
-        """
+
         # Открытие изображения с помощью PIL
         input_image = Image.open(url)
 
         # Удаление фона
         output_image = remove(input_image)
         return self.toggle_streaming(output_image)
+
 class MaskLoaderFromUrl(MaskLoader):
     def load_mask(self, url):
-        """
-        Загрузка изображения маски из URL.
-        """
+
         response = requests.get(url, verify=False)
         input_image = Image.open(io.BytesIO(response.content))
         output_image = remove(input_image)
@@ -55,9 +52,7 @@ class MaskLoaderFromUrl(MaskLoader):
         return self.toggle_streaming(output_image)
 
 def detect_faces(frame, face_cascade):
-    """
-    Обнаружение лиц на кадре.
-    """
+
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     return faces
@@ -71,10 +66,13 @@ def apply_mask(frame, mask, faces):
         x1, x2 = x, x + w
         y1, y2 = y, y + h
 
+
+
         # Изменение размера маски с сохранением соотношения сторон
         mask_aspect_ratio = mask.shape[1] / mask.shape[0]
         face_aspect_ratio = w / h
 
+        # print(mask_aspect_ratio,'\n', face_aspect_ratio)
         if mask_aspect_ratio > face_aspect_ratio:
             new_w = int(w * 1.48)  # увеличиваем на 30%
             new_h = int(new_w / mask_aspect_ratio)

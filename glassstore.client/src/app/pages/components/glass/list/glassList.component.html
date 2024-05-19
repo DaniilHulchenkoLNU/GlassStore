@@ -14,15 +14,18 @@
           <h6 class="card-subtitle text-muted">Support card subtitle</h6>
         </div>
         <!--<img [src]="glassService.get_Glass_img(glass.id)" class="d-block user-select-none" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">-->
-        <img [src]="'/help/GetImageById/' + glass.id" class="d-block user-select-none" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-        <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <div class="card-body">
-          <a [routerLink]="glass.id" class="btn btn-secondary">Buy</a>
+          <!--<div class="image-container">-->
+            <img [src]="'/help/GetImageById/' + glass.id" class="d-block user-select-none" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180">
+          <!--</div>-->
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+          <div class="card-body">
+            <a [routerLink]="glass.id" class="btn btn-secondary">Buy</a>
+            <a (click)="addToCart(glass.id)" class="btn btn-secondary">Add to Cart</a>
+          </div>
         </div>
       </div>
-    </div>
   </div>
 </div>
 

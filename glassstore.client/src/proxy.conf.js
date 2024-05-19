@@ -5,12 +5,14 @@ const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_H
 
 const PROXY_CONFIG = [
   {
-    context: [// пути которые идут на .net должны быть в другом регистре чем пути на ангуляре, иначе не работает
+    context: [// пути которые идут на .net должны соответствовать путям в app.UseEndpoints
+      "/test",
       "/weatherforecast",
       "/glasses",
       "/help",
       "/auth",
       "/user",
+
     ],
     target,
     secure: false
@@ -18,4 +20,5 @@ const PROXY_CONFIG = [
 ]
 
 module.exports = PROXY_CONFIG;
+
 

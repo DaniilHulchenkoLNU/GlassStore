@@ -9,6 +9,10 @@ import { ACCESS_TOKEN } from './services/Auth.service';
 import { WeatherComponent } from './pages/components/weather/weather.component';
 import { HeaderComponent } from './pages/layout/header/header.component';
 import { AuthModule } from './pages/layout/Auth/auth.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TestModule } from './pages/components/test/test.module';
+
+
 
 
 //const { env } = require('process');
@@ -22,13 +26,20 @@ export function tokenGetter() {
     AppComponent,
     WeatherComponent,
     HeaderComponent,
+
+    
+
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
 
     AuthModule,
+
+    TestModule,
+
 
     //JwtModule.forRoot({
     //  config: {

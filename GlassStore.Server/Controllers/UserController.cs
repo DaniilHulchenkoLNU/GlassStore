@@ -1,5 +1,6 @@
 ﻿using GlassStore.Server.DAL.Interfaces;
 using GlassStore.Server.Domain.Models.Auth;
+using GlassStore.Server.Domain.Models.Glass;
 using GlassStore.Server.Domain.Models.User;
 using GlassStore.Server.Servise.User;
 using Microsoft.AspNetCore.Authorization;
@@ -34,6 +35,8 @@ namespace GlassStore.Server.Controllers
         [HttpGet("GetUserBasket")]
         public async Task<Basket> GetUserBasket() => await userServise.GetBasket();
 
+        [HttpPost("AddToBasket")]
+        public async Task<bool> AddToBasket([FromBody] Dictionary<string, string> data) => await userServise.AddToBasket(data);
         ////[HttpPost("Create")]
         //public ActionResult Create()
         //{

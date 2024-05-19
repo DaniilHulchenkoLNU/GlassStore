@@ -1,0 +1,32 @@
+<!--<form>-->
+<!--<fieldset control-id="ControlID-9">-->
+<!--<legend>Legend</legend>
+  <div>
+    <label for="exampleInputEmail1" class="form-label mt-4" style="color:white">Email address</label>
+    <input type="email" #email class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" control-id="ControlID-11">
+
+  </div>
+  <div>
+    <label for="exampleInputPassword1" matInput  class="form-label mt-4" style="color:white">Password</label>
+    <input type="password" #password matInput #password class="form-control" id="exampleInputPassword1" placeholder="Password" autocomplete="off" control-id="ControlID-12">
+
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <button type="submit" class="btn btn-primary" (click)="login(email.value, password.value)" control-id="ControlID-32">Submit</button>
+
+</form>-->
+
+<mat-card>
+  <h2 style="color: gray">Register</h2>
+  <mat-form-field class="form-label mt-4" style="color:white">
+    <mat-label>Email address</mat-label>
+    <input type="email" matInput placeholder="Enter email" #email>
+  </mat-form-field>
+
+  <mat-form-field class="form-label mt-4" style="color:white">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput placeholder="Password" #password>
+  </mat-form-field>
+  <button mat-flat-button (click)="register(email.value, password.value)" class="bg-black">Login</button>
+
+</mat-card>
