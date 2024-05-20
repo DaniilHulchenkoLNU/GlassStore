@@ -42,6 +42,10 @@ namespace GlassStore.Server.Servise
 
 
         }
+        public async Task Update(Chat chat)
+        {
+            await chatRepository.UpdateAsync(chat.Id, chat);
+        }
 
         public async Task<Chat> CreateChat(UserInfo user, string ?ThemeId = null)
         {
@@ -51,7 +55,9 @@ namespace GlassStore.Server.Servise
             string userId = user.Id;
 
             Dialog NewDialog = new Dialog{
+                Message = "Start",
                 Sender_User = new UserInfo() { Id = user.Id },
+                DateTime = DateTime.Now
             };
 
             Chat NewChat = new Chat() { 

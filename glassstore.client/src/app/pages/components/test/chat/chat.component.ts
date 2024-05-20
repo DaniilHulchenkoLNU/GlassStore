@@ -14,29 +14,26 @@ import { ACCESS_TOKEN } from '../../../../services/Auth.service';
   styleUrl: './chat.component.css'
 })
 export class ChatComponent {
+  
+  private hubConnection!: signalR.HubConnection;
+  private token: string | null = localStorage.getItem(ACCESS_TOKEN);
+
   chat!: Chat;
   messages: string[] = [];
   message: string = '';
   user!: User;
-  private hubConnection!: signalR.HubConnection;
 
-  
-
-  constructor(/*private chatService: TestService,*/ private http: HttpClient, private userServise: UserService) {
-    //http.get("/test/chat").subscribe<string[]>((data ) => { this.messages = data });
-
+  constructor( private http: HttpClient, private userServise: UserService) {}
+ 
+  ngOnInit(): void {
+    this.userServise.getuser().subscribe((data) => this.user = data)
   }
 
-
-  ngOnInit(): void {
+  startChat() {
     
-
-    //this.chatService.startConnection();
-
-    const token = localStorage.getItem(ACCESS_TOKEN);
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl(`${environment.apiUrl[0]}/chathub`, {
-        accessTokenFactory: () => Promise.resolve(token || '') // Return an empty string if token is null
+        accessTokenFactory: () => this.token ? this.token : ''
       })
       .configureLogging(signalR.LogLevel.Information)
       .build();
@@ -52,18 +49,21 @@ export class ChatComponent {
       for (var i = 0; i < this.chat.dialog.length; i++) {
         this.messages.push(this.chat.dialog[i].message);
       }
-      
-      this.userServise.getuser().subscribe((data) => this.user = data)
+
+
       // Добавьте логику для отображения сообщений чата
+
+      
+
     });
-  }
+}
 
   sendMessage() {
     if (this.message) {
       //this.chatService.sendMessage(this.message);
 
-      const dialog: Dialog = { message: "c", dateTime: new Date() }
-
+      const dialog: Dialog = { message: this.message }
+      this.chat.dialog[0].senderUser?.email
       this.chat.dialog.push(dialog)
       this.hubConnection.invoke('SendMessage', this.chat)
         .catch(err => console.error(err));

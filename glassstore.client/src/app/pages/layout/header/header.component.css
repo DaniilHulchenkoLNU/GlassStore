@@ -1,0 +1,16 @@
+tr:nth-child(even) {
+  background: #F2F2F2;
+}
+
+tr:nth-child(odd) {
+  background: #FFF;
+}
+
+th, td {
+  padding-left: 100rem;
+  padding-right: 100rem;
+}
+
+table {
+  margin: 0 auto;
+}

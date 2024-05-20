@@ -10,17 +10,17 @@ import { AuthService } from './services/Auth.service';
 
 })
 export class AppComponent implements OnInit {
-  public get isLoggedIn(): boolean {
-    return this.auth.isAuthenticated();
-  }
 
 
   constructor(private auth: AuthService) {
   }
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void {}
+
+  public get isLoggedIn(): boolean {
+    return this.auth.isAuthenticated();
   }
-  
+
+
   title = 'glassstore.client';
 }

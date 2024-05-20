@@ -28,6 +28,13 @@ namespace GlassStore.Server.Servise.User
             this.glassRepository = glassRepository;
 
         }
+
+        public async Task<UserInfo> GetUserbyId(string id)
+        {
+            Accounts account = await _userRepository.GetByIdAsync(id);
+            return mapper.Map<UserInfo>(account);
+        }
+
         public async Task<UserInfo> GetUser()
         {
             Accounts account = await httpService.GetCurrentUser();
