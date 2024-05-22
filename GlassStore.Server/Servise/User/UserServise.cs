@@ -7,6 +7,7 @@ using System.Linq;
 using GlassStore.Server.Repositories.Interfaces;
 using GlassStore.Server.Domain.Models.Glass;
 using MongoDB.Bson;
+using System.Collections.Generic;
 
 
 
@@ -34,6 +35,20 @@ namespace GlassStore.Server.Servise.User
             Accounts account = await _userRepository.GetByIdAsync(id);
             return mapper.Map<UserInfo>(account);
         }
+
+        public async Task<List<UserInfo>> GetAdmins()
+        {
+            var allUsers = await _userRepository.GetAllAsync();
+            var admins = allUsers.Where(user => user.Roles.Contains(Role.Admin)).ToList();
+            List < UserInfo > adminsUI = new List<UserInfo> { };
+            foreach (var admin in admins)
+            {
+                adminsUI.Add(mapper.Map<UserInfo>(admin));
+            }
+            return adminsUI;
+        }
+
+        
 
         public async Task<UserInfo> GetUser()
         {
@@ -117,6 +132,10 @@ namespace GlassStore.Server.Servise.User
         {
             Accounts user = await httpService.GetCurrentUser();
             decimal totalPrice = 0;
+            if (user.Basket.Glasses == null)
+            {
+                return 0;
+            }
             foreach (var glasses_id in user.Basket.Glasses)
             {
                 totalPrice += (await glassRepository.GetByIdAsync(glasses_id.Id)).Price;

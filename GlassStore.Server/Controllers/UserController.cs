@@ -2,6 +2,7 @@
 using GlassStore.Server.Domain.Models.Auth;
 using GlassStore.Server.Domain.Models.Glass;
 using GlassStore.Server.Domain.Models.User;
+using GlassStore.Server.Servise;
 using GlassStore.Server.Servise.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -15,9 +16,11 @@ namespace GlassStore.Server.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserServise userServise;
+        private readonly ChatServise chatServise;
 
-        public UserController(UserServise userServise)
+        public UserController(UserServise userServise, ChatServise chatServise)
         {
+            this.chatServise = chatServise;
             this.userServise = userServise;
         }
 
@@ -37,6 +40,9 @@ namespace GlassStore.Server.Controllers
 
         [HttpPost("AddToBasket")]
         public async Task<bool> AddToBasket([FromBody] Dictionary<string, string> data) => await userServise.AddToBasket(data);
+
+        [HttpPost("GetChats")]
+        public async Task<List<Chat>> GetChats() => await chatServise.GetChatsForAdmin();
         ////[HttpPost("Create")]
         //public ActionResult Create()
         //{

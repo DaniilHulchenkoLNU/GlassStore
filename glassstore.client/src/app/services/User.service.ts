@@ -24,7 +24,7 @@ export class UserService {
     return this.http.get<Basket>(`/user/GetUserBasket`);
   }
 
-  addtobasket(glassId: string): Observable<boolean> {
+  addtobasket(glassId: string): Observable<boolean>{
     return this.http.post<boolean>(`/user/AddToBasket`, { id: glassId });
   }
 }

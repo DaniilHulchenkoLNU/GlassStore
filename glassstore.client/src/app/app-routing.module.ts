@@ -17,10 +17,10 @@ export const routes: Routes = [
     path: 'User',
     loadChildren: () => import('./pages/components/user/user.module').then(m => m.UserModule)
   },
-  //{
-  //  path: 'Test',
-  //  loadChildren: () => import('./pages/components/test/test.module').then(m => m.TestModule)
-  //},
+  {
+    path: 'Test',
+    loadChildren: () => import('./pages/components/test/test.module').then(m => m.TestModule)
+  },
   //{
   //  path: 'User',
   //  loadChildren: () => import('./pages/components/user/user.module').then(m => m.UserModule)

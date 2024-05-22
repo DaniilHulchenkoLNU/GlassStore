@@ -1,24 +1,31 @@
+<div *ngIf="isLoggedIn">
+  <!-- Кнопка для открытия чата -->
+  <button (click)="startChat()" class="btn btn-primary rounded-circle position-fixed bottom-0 end-0 m-3" style="width: 60px; height: 60px; font-size: 30px;">
+    +
+  </button>
 
-<button (click)="startChat()" class="btn btn-primary rounded-circle position-fixed bottom-0 end-0 m-3" style="width: 60px; height: 60px; font-size: 30px;" data-bs-toggle="modal" data-bs-target="#chatModal">
-  +
-</button>
-
-
-<div class="modal fade position-fixed bottom-0 end-0 p-3" id="chatModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="max-width: 300px;">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="background-color: transparent;">
-
+  <!-- Модальное окно чата -->
+  <div class="chat-window position-fixed bottom-0 end-0 m-3" *ngIf="isChatOpen">
+    <div class="modal-content chat-container">
       <div class="close-button">
-        <button data-bs-dismiss="modal">X</button>
+        <button (click)="disconnect()">X</button>
       </div>
-
       <div class="messages">
         <div *ngFor="let dialog of chat.dialog" class="message">
-          <p style="color:black">{{dialog.senderUser?.email}}</p>
-          <p style="color:black">{{dialog.message}}</p>
-        </div>
-      </div>
+          <!-- Условие для роли 1 -->
+          <ng-container *ngIf="dialog.senderUser?.roles == 1; else userEmail">
+            <strong><p class="sender-email">{{dialog.senderUser?.email || 'Unknown sender'}}</p></strong>
+          </ng-container>
 
+          <!-- Условие для других ролей -->
+          <ng-template #userEmail>
+            <strong><p class="sender-email" style="color:black">{{dialog.senderUser?.email || 'Unknown sender'}}</p></strong>
+          </ng-template>
+
+          <p class="message-text">{{dialog.message}}</p>
+        </div>
+
+      </div>
       <div class="input-area">
         <input type="text" [(ngModel)]="message" placeholder="Type a message...">
         <button (click)="sendMessage()">Send</button>

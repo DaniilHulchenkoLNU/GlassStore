@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router, Routes } from '@angular/router';
 import { AuthService } from '../../../services/Auth.service';
 import { AppComponent } from '../../../app.component';
+import { User } from '../../../models/User/User';
+import { UserService } from '../../../services/User.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +13,9 @@ import { AppComponent } from '../../../app.component';
 export class HeaderComponent {
 
   public urls: string[] = [];
-  private IgnoreUrls = ['GlassInfo/:id',];
+  private IgnoreUrls = ["User",];
+
+  public user!: User;
 
 
   public get isLoggedIn(): boolean {
@@ -21,7 +25,7 @@ export class HeaderComponent {
     this.auth.logout()
   }
 
-  constructor(private router: Router, public auth: AuthService) {
+  constructor(private router: Router, public auth: AuthService, public userservise: UserService) {
 
 
     const routes: Routes = this.router.config;
@@ -35,11 +39,14 @@ export class HeaderComponent {
       }
     });
 
-    //this.urls = this.urls.filter(url => !this.IgnoreUrls.includes(url));
+    this.urls = this.urls.filter(url => !this.IgnoreUrls.includes(url));
     //this.urls.reduce('GlassInfo')
   }
 
+  ngOnInit(): void {
+    this.userservise.getuser().subscribe((res) => this.user = res);
+  }
 
-  oninit(): void {}
+  
 
 }

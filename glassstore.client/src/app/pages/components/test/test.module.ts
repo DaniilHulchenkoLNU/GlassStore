@@ -10,13 +10,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { UserService } from '../../../services/User.service';
+import { AdminChatComponent } from './admin-chat/admin-chat.component';
 
 
 
 
 @NgModule({
   declarations: [
-    ChatComponent
+    ChatComponent,
+    AdminChatComponent
   ],
   imports: [
     CommonModule,

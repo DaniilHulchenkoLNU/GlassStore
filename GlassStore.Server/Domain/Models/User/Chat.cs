@@ -16,7 +16,7 @@ namespace GlassStore.Server.Domain.Models.User
     public class Dialog
     {
         public string Message { get; set; }
-        public UserInfo Sender_User { get; set; }
+        public UserInfo SenderUser { get; set; }
         public DateTime DateTime { get; set; }
     }
 }

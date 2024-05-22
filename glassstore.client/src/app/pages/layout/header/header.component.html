@@ -27,6 +27,7 @@
 
 
       <div *ngIf="isLoggedIn; else loginLink">
+        <a class="navbar-brand" routerLinkActive="active" routerLink="/User" [routerLinkActiveOptions]="{ exact: true }">{{user.email}}</a>
         <a class="navbar-brand" routerLinkActive="active" routerLink="/User/Basket" [routerLinkActiveOptions]="{ exact: true }">Basket</a>
         <a class="navbar-brand" href="#" (click)="logout()">Logout</a>
       </div>

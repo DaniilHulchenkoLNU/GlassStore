@@ -36,16 +36,14 @@ namespace GlassStore.Server.Controllers.Hubs
 
         public override async Task OnConnectedAsync()
         {
-
-            // Получите сообщения из базы данных
-            
-
+            // Получите из базы данных
             UserInfo accounts = await userServise.GetUserbyId(userId);
-            //_logger.LogInformation($"Подключение клиента: {userId}");
             Chat chat = await chatServise.GetChatRegular(accounts);
 
 
             // Отправьте сообщения клиенту, который только что подключился
+            await Groups.AddToGroupAsync(Context.ConnectionId, chat.Id);
+
             await Clients.Caller.SendAsync("ReceiveMessage", chat);
 
 
@@ -57,14 +55,31 @@ namespace GlassStore.Server.Controllers.Hubs
         {
             //UserInfo accounts = await userServise.GetUserbyId(userId);
             //await Chat.CreateAsync(new Chat { message = message });
-            _logger.LogInformation($"Сообщение от клиента: {chat}");
+            
             chat.Dialog.Last().DateTime = DateTime.Now;
-            chat.Dialog.Last().Sender_User = new UserInfo() { Id = userId};
+            chat.Dialog.Last().SenderUser = await userServise.GetUserbyId(userId);
             await chatServise.Update(chat);
 
-            await Clients.All.SendAsync("ReceiveMessage", chat);
+            _logger.LogInformation($"Сообщение от клиента: {chat.Dialog.Last().SenderUser.Email}");
+
+            var admins = await userServise.GetAdmins();
+            foreach (var admin in admins)
+            {
+                await Clients.User(admin.Id).SendAsync("ReceiveMessage", chat);
+            }
+            //if (chat.Dialog.Last().SenderUser.Roles.Contains(Role.Admin))
+            //{
+            //    await Clients.User(chat.Dialog.Last().SenderUser.Id).SendAsync("ReceiveMessage", chat);
+            //}
+            //await Clients.Caller.SendAsync("ReceiveMessage", chat);
+            await Clients.Group(chat.Id).SendAsync("ReceiveMessage", chat);
+
         }
 
-        
+        public override async Task OnDisconnectedAsync(Exception exception)
+        {
+            _logger.LogInformation($"Клиент отключился: {userId}");
+            await base.OnDisconnectedAsync(exception);
+        }
     }
 }
